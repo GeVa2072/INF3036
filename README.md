@@ -10,6 +10,7 @@
 ## Les Arbres
 [Présentation](https://github.com/GeVa2072/INF3036/raw/master/INF2031_ARBRES.pdf)
 ### Arbre bianaire
+https://fr.wikipedia.org/wiki/Rotation_d%27un_arbre_binaire_de_recherche
 
 # Projet 
 Je vous propose la réalisation d'une application de gestion de client en C.

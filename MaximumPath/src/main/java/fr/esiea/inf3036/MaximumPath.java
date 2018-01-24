@@ -12,32 +12,14 @@ public class MaximumPath {
     }
 
     public String getPath() {
-        // Maintenant que nous avons une représentation plus simple de notre pyramid essayons d'améliorer le parcours.
-        triangle.reduce();
-
-        // Ici la représentation du triangle ne nous aides pas vraiement à résoudre le problème.
-        List<Integer> path = maxPath(triangle, 0, 0);
-        return path.stream().map(String::valueOf).collect(Collectors.joining(" "));
-    }
-
-    private List<Integer> maxPath(Pyramid pyramid, int lineIndex, int position) {
-        //System.out.println("Processing element "+triangle[lineIndex][position]);
-        List<Integer> bestPossiblePath = new ArrayList();
-        bestPossiblePath.addAll(pyramid.getLine(lineIndex).getElementAt(position).getBestPossiblePath());
-        // Detect leaf, there are no more line. return no path
-        if(lineIndex>pyramid.getNbLine()-2) {
-            return bestPossiblePath;
+        // Il ne reste plus qu'a savoir combient de fois on peut réduire.
+        int maxReduceTime = triangle.getNbLine()-1;
+        for(int i =0;i<maxReduceTime;i++) {
+            triangle.reduce();
+            // Ici nous détruisons l'objet triangle en le réduisant, on peut éviter cela.
         }
 
-        //System.out.println("Possible path are "+triangle[lineIndex+1][position] + ", "+triangle[lineIndex+1][position+1]);
-        List<Integer> path1 = maxPath(pyramid, lineIndex+1, position);
-        List<Integer> path2 = maxPath(pyramid, lineIndex+1, position+1);
-        if(path1.stream().mapToInt(Integer::intValue).sum() > path2.stream().mapToInt(Integer::intValue).sum()) {
-            bestPossiblePath.addAll(path1);
-        } else {
-            bestPossiblePath.addAll(path2);
-        }
-
-        return bestPossiblePath;
+        // Si je réduis suffisamment, il devrait rester qu'un élément le premier et le meilleur chemin.
+        return triangle.getLine(0).getElementAt(0).getBestPossiblePath().stream().map(String::valueOf).collect(Collectors.joining(" "));
     }
 }

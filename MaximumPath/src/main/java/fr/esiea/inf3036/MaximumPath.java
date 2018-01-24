@@ -1,36 +1,14 @@
 package fr.esiea.inf3036;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class MaximumPath {
-    private final int[][] triangle;
-    private final int nbLine;
+    private final Pyramid triangle;
 
-    public MaximumPath(String triangle) {
-        String[] element = triangle.split(" ");
-        // nous avons tous les éléments.
-        // On calcule le nombre de ligne
-        nbLine = (int) Math.sqrt(element.length)+1;
-        //System.out.println("triangle nbLine = " + nbLine);
-        this.triangle = new int[nbLine][nbLine];
-
-        int elementIndex = 0;
-        // Move over array lines
-        for(int lineIndex = 0; lineIndex<nbLine; lineIndex++) {
-            //System.out.print(String.format("Line %d contains ", lineIndex));
-            // move over array columns
-            for(int columnIndex = 0 ; columnIndex<lineIndex+1; columnIndex++) {
-                //System.out.print(element[elementIndex] + " ");
-                this.triangle[lineIndex][columnIndex] = Integer.parseInt(element[elementIndex++]);
-            }
-            //System.out.println();
-        }
+    public MaximumPath(Pyramid triangle) {
+        this.triangle = triangle;
     }
 
     public String getPath() {
@@ -42,9 +20,9 @@ public class MaximumPath {
     private List<Integer> maxPath(int lineIndex, int position) {
         //System.out.println("Processing element "+triangle[lineIndex][position]);
         List<Integer> bestPossiblePath = new ArrayList();
-        bestPossiblePath.add(triangle[lineIndex][position]);
+        bestPossiblePath.add(triangle.getLine(lineIndex)[position]);
         // Detect leaf, there are no more line. return no path
-        if(lineIndex>nbLine-2) {
+        if(lineIndex>triangle.getNbLine()-2) {
             return bestPossiblePath;
         }
 

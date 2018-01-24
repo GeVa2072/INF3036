@@ -20,7 +20,7 @@ public class MaximumPath {
     private List<Integer> maxPath(int lineIndex, int position) {
         //System.out.println("Processing element "+triangle[lineIndex][position]);
         List<Integer> bestPossiblePath = new ArrayList();
-        bestPossiblePath.add(triangle.getLine(lineIndex)[position]);
+        bestPossiblePath.add(triangle.getLine(lineIndex).getElementAt(position));
         // Detect leaf, there are no more line. return no path
         if(lineIndex>triangle.getNbLine()-2) {
             return bestPossiblePath;

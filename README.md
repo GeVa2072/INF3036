@@ -18,3 +18,10 @@ Je vous propose la réalisation d'une application de gestion de client en C.
 Dans une premiére partie, nous allons définir ce que représente un client (nom, prénom, ...) afin de créer une structure qui permettra sont stockage. 
 Ensuite nous allons construire une liste chainée qui contiendra nos clients et ajouter quelque fonction de base (ajout dans la liste, retrait de la liste, déplacement ...)
 Cette liste ne permettrant pas facilement la recherche, nous allons ajouter des arbres bianires de recherche sur différent élémeent, comme le nom par exemple. 
+
+
+# Exercice JAVA 
+https://projecteuler.net/problem=18
+https://projecteuler.net/problem=67
+
+

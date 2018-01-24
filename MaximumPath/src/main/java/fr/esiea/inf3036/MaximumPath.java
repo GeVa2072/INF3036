@@ -14,12 +14,12 @@ public class MaximumPath {
     public String getPath() {
         // Il ne reste plus qu'a savoir combient de fois on peut réduire.
         int maxReduceTime = triangle.getNbLine()-1;
+        Pyramid intermediate = triangle;
         for(int i =0;i<maxReduceTime;i++) {
-            triangle.reduce();
-            // Ici nous détruisons l'objet triangle en le réduisant, on peut éviter cela.
+            intermediate = intermediate.reduce();
         }
 
         // Si je réduis suffisamment, il devrait rester qu'un élément le premier et le meilleur chemin.
-        return triangle.getLine(0).getElementAt(0).getBestPossiblePath().stream().map(String::valueOf).collect(Collectors.joining(" "));
+        return intermediate.getLine(0).getElementAt(0).getBestPossiblePath().stream().map(String::valueOf).collect(Collectors.joining(" "));
     }
 }

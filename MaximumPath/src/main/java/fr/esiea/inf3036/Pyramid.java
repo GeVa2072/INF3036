@@ -23,6 +23,11 @@ public class Pyramid {
         }
     }
 
+    private Pyramid(List<Line> oldLines, Line newLine) {
+        lines.addAll(oldLines);
+        lines.add(newLine);
+    }
+
     public Line getLine(int lineIndex) {
         return lines.get(lineIndex);
     }
@@ -37,7 +42,7 @@ public class Pyramid {
      *
      * @return une nouvelle pyramid sans la dernière ligne.
      */
-    public void reduce() {
+    public Pyramid reduce() {
         Line nextTo = getLine(getNbLine() - 2);
         Line lastLine = getLine(getNbLine()-1);
 
@@ -54,9 +59,12 @@ public class Pyramid {
             newLine.addElement(newElement);
         }
 
+        /* On remplace la destruction par la coonstruction d'une nouvelle pyreamid.
         lines.remove(lastLine);
         lines.remove(nextTo);
         lines.add(newLine);
+        */
 
+        return new Pyramid(lines.subList(0, getNbLine() - 2), newLine);
     }
 }

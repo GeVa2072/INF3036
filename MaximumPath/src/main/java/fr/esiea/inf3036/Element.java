@@ -29,4 +29,12 @@ public class Element implements Comparable<Element> {
         }
         return value - o.value;
     }
+
+    @Override
+    public String toString() {
+        return "Element{" +
+                "value=" + value +
+                ", bestPath=" + bestPath +
+                '}';
+    }
 }

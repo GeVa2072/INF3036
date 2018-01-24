@@ -27,4 +27,9 @@ public class Line {
     public void addElement(Element newElement) {
         elements.add(newElement);
     }
+
+    @Override
+    public String toString() {
+        return elements.stream().map(Element::toString).collect(Collectors.joining(" "));
+    }
 }

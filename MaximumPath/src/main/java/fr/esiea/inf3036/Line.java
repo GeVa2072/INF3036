@@ -6,13 +6,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Line {
-    List<Element> elements = new ArrayList<>();
+    private List<Element> elements = new ArrayList<>();
 
     public Line(String[] lineContent) {
         elements.addAll(Arrays.stream(lineContent).map(Element::new).collect(Collectors.toList()));
     }
 
+    public Line() {
+
+    }
+
     public Element getElementAt(int position) {
         return elements.get(position);
+    }
+
+    public int getSize() {
+        return elements.size();
+    }
+
+    public void addElement(Element newElement) {
+        elements.add(newElement);
     }
 }

@@ -12,26 +12,18 @@ public class MaximumPath {
     }
 
     public String getPath() {
+        // Maintenant que nous avons une représentation plus simple de notre pyramid essayons d'améliorer le parcours.
+        triangle.reduce();
+
         // Ici la représentation du triangle ne nous aides pas vraiement à résoudre le problème.
         List<Integer> path = maxPath(triangle, 0, 0);
         return path.stream().map(String::valueOf).collect(Collectors.joining(" "));
-
-        // Maintenant que nous avons une représentation plus simple de notre pyramid essayons d'améliorer le parcours.
-
-        //Pyramid reduce = new Pyramid(reducePyramid(triangle));
-
-        //return null;
-    }
-
-    private String reducePyramid(Pyramid pyramid) {
-        Line nextTo = pyramid.getLine(pyramid.getNbLine()-1);
-        return null;
     }
 
     private List<Integer> maxPath(Pyramid pyramid, int lineIndex, int position) {
         //System.out.println("Processing element "+triangle[lineIndex][position]);
         List<Integer> bestPossiblePath = new ArrayList();
-        bestPossiblePath.add(pyramid.getLine(lineIndex).getElementAt(position).getBestPossiblePath());
+        bestPossiblePath.addAll(pyramid.getLine(lineIndex).getElementAt(position).getBestPossiblePath());
         // Detect leaf, there are no more line. return no path
         if(lineIndex>pyramid.getNbLine()-2) {
             return bestPossiblePath;

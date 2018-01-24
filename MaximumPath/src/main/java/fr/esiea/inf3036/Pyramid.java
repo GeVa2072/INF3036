@@ -31,4 +31,32 @@ public class Pyramid {
         return lines.size();
     }
 
+    /**
+     * On prend l'avant dernière ligne et on calcule les meilleurs chemin vers chaque élément
+     *
+     *
+     * @return une nouvelle pyramid sans la dernière ligne.
+     */
+    public void reduce() {
+        Line nextTo = getLine(getNbLine() - 2);
+        Line lastLine = getLine(getNbLine()-1);
+
+        Line newLine = new Line();
+
+        for (int i = 0; i < nextTo.getSize(); i++) {
+            Element currentElementFromNextTo = nextTo.getElementAt(i);
+            Element newElement = null;
+            if (lastLine.getElementAt(i).compareTo(lastLine.getElementAt(i + 1)) > 0) {
+                newElement = new Element(currentElementFromNextTo, lastLine.getElementAt(i));
+            } else {
+                newElement = new Element(currentElementFromNextTo, lastLine.getElementAt(i + 1));
+            }
+            newLine.addElement(newElement);
+        }
+
+        lines.remove(lastLine);
+        lines.remove(nextTo);
+        lines.add(newLine);
+
+    }
 }

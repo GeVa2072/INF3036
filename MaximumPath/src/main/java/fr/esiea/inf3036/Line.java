@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Line {
-    List<Integer> elements = new ArrayList<>();
+    List<Element> elements = new ArrayList<>();
 
     public Line(String[] lineContent) {
-        elements.addAll(Arrays.stream(lineContent).map(Integer::valueOf).collect(Collectors.toList()));
+        elements.addAll(Arrays.stream(lineContent).map(Element::new).collect(Collectors.toList()));
     }
 
-    public Integer getElementAt(int position) {
+    public Element getElementAt(int position) {
         return elements.get(position);
     }
 }

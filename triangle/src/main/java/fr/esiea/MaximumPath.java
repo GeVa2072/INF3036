@@ -1,9 +1,6 @@
 package fr.esiea;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MaximumPath {
@@ -16,28 +13,41 @@ public class MaximumPath {
     }
 
     public int maximum() {
-        List<Integer> path = maxPath(0,0);
-        return path.stream().reduce((i, i2) -> i + i2).get();
+        List<Element> path = maxPath(0,0);
+        return path.get(0).maximum;
     }
 
-    private List<Integer> maxPath(int lineIndex, int position) {
+    private List<Element> maxPath(int lineIndex, int position) {
+        Element current = pyramid.getElement(lineIndex, position);
 
-        List<Integer> bestPossiblePath = new ArrayList<>();
-        bestPossiblePath.add(pyramid.getElement(lineIndex, position).value);
+        if(current.compute) {
+            return current.maxPath;
+        }
 
-        if(lineIndex >= pyramid.getHeight()-1) return bestPossiblePath;
+        if(lineIndex >= pyramid.getHeight()-1) {
+            current.maximum = current.value;
+            current.maxPath = Collections.singletonList(current);
+            return current.maxPath;
+        }
 
-        List<Integer> maxPath1 = maxPath(lineIndex+1, position);
-        List<Integer> maxPath2 = maxPath(lineIndex+1, position+1);
+        List<Element> bestPossiblePath = new ArrayList<>();
+        bestPossiblePath.add(pyramid.getElement(lineIndex, position));
 
-        bestPossiblePath.addAll(bestBetween(maxPath1, maxPath2));
+        List<Element> maxPath1 = maxPath(lineIndex+1, position);
+        List<Element> maxPath2 = maxPath(lineIndex+1, position+1);
+
+        List<Element> bestPath = bestBetween(maxPath1, maxPath2);
+        bestPossiblePath.addAll(bestPath);
+        current.maxPath = bestPossiblePath;
+        current.maximum = current.value + bestPath.get(0).maximum;
+        current.compute = true;
 
         return bestPossiblePath;
     }
 
-    private Collection<? extends Integer> bestBetween(List<Integer> maxPath1, List<Integer> maxPath2) {
-        int sum1 = maxPath1.stream().reduce((acc, valeur) -> acc+valeur).get();
-        int sum2 = maxPath2.stream().reduce((integer, integer2) -> integer+integer2).get();
+    private List<Element> bestBetween(List<Element> maxPath1, List<Element> maxPath2) {
+        int sum1 = maxPath1.get(0).maximum;
+        int sum2 = maxPath2.get(0).maximum;
 
         if(sum1 > sum2) {
             return maxPath1;
@@ -48,6 +58,6 @@ public class MaximumPath {
 
 
     public String maximumPath() {
-        return maxPath(0, 0).stream().map(String::valueOf).collect(Collectors.joining(" "));
+        return maxPath(0, 0).stream().map(element -> element.value).map(String::valueOf).collect(Collectors.joining(" "));
     }
 }

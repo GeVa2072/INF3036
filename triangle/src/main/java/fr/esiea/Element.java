@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Element {
+    boolean compute = false;
     Integer value = null;
     Integer maximum = 0;
     List<Element> maxPath = Collections.emptyList();
